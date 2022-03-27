@@ -1,0 +1,44 @@
+server:
+  port: ${PORT:8085}
+  servlet:
+    session:
+      tracking-modes: cookie
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    driverClassName: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
+    username: ${SPRING_DATASOURCE_USERN:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres1}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        format_sql: true
+  resources:
+    static-locations: classpath:/spring-frontend/
+  messages:
+    basename: lang.messages
+  thymeleaf:
+    prefix: classpath:/spring-frontend/
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-root.xml
+
+download:
+  path: C:\Users\gbasiladze\Desktop\download
+
+auth:
+  token:
+    name: token
+  secret: 2328e199-b75d-4c2f-a10b-4fdc59263c6f

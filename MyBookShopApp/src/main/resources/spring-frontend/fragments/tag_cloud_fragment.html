@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="Tags" id="tags" th:fragment="cloud(${tags})">
+    <div th:remove="tag" th:each="tag : ${tags}">
+        <div class="Tag">
+            <a th:href="'/tags/' + ${tag.slug}"
+               th:text="${tag.name}" href="/tags/index.html">зарубежная литература</a>
+        </div>
+    </div>
+    <!--todo
+    <div class="Tag Tag_xs"><a href="/tags/index.html">современная литература</a>
+    </div>
+    <div class="Tag Tag_sm"><a href="/tags/index.html">классическая литература</a>
+    </div>
+    <div class="Tag"><a href="/tags/index.html">русская литература</a>
+    </div>
+    <div class="Tag Tag_md"><a href="/tags/index.html">фэнтези</a>
+    </div>
+    <div class="Tag Tag_lg"><a href="/tags/index.html">английская литература</a>
+    </div>-->
+</div>
+</html>
