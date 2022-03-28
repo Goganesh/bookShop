@@ -4,7 +4,7 @@ import com.goganesh.bookshop.domain.Book;
 import com.goganesh.bookshop.domain.BookReview;
 import com.goganesh.bookshop.domain.User;
 import com.goganesh.bookshop.dto.BookReviewRequest;
-import com.goganesh.bookshop.exception.NoUserFoundException;
+import com.goganesh.bookshop.exception.NoSuchUserException;
 import com.goganesh.bookshop.repository.BookRepository;
 import com.goganesh.bookshop.repository.BookReviewRepository;
 import com.goganesh.bookshop.service.BookReviewService;
@@ -28,7 +28,7 @@ public class BookReviewServiceImpl implements BookReviewService {
     public void handleBookReviewRequest(BookReviewRequest bookReviewRequest) {
         User user = userRegisterService.getCurrentUser();
         if (!user.getRole().equals("USER")) {
-            throw new NoUserFoundException("there is no such user");
+            throw new NoSuchUserException("there is no such user");
         }
 
         Book book = bookRepository.findBySlug(bookReviewRequest.getBookId());

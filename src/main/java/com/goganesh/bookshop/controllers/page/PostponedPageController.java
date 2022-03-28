@@ -5,6 +5,7 @@ import com.goganesh.bookshop.domain.Book2UserType;
 import com.goganesh.bookshop.domain.User;
 import com.goganesh.bookshop.dto.BookPageDto;
 import com.goganesh.bookshop.dto.SearchWordDto;
+import com.goganesh.bookshop.dto.UserPageDto;
 import com.goganesh.bookshop.repository.Book2UserRepository;
 import com.goganesh.bookshop.repository.Book2UserTypeRepository;
 import com.goganesh.bookshop.service.BookRatingService;
@@ -25,6 +26,11 @@ public class PostponedPageController {
     private final Book2UserRepository book2UserRepository;
     private final Book2UserTypeRepository book2UserTypeRepository;
     private final BookRatingService bookRatingService;
+
+    @ModelAttribute("currentUser")
+    public UserPageDto user(){
+        return new UserPageDto(userRegisterService.getCurrentUser());
+    }
 
     @ModelAttribute("searchWordDto")
     public SearchWordDto searchWordDto(){

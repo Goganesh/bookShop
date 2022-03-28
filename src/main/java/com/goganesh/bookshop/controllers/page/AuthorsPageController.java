@@ -3,7 +3,9 @@ package com.goganesh.bookshop.controllers.page;
 import com.goganesh.bookshop.domain.Author;
 import com.goganesh.bookshop.dto.AuthorPageDto;
 import com.goganesh.bookshop.dto.SearchWordDto;
+import com.goganesh.bookshop.dto.UserPageDto;
 import com.goganesh.bookshop.repository.AuthorRepository;
+import com.goganesh.bookshop.service.UserRegisterService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,12 @@ import java.util.stream.Collectors;
 public class AuthorsPageController {
 
     private final AuthorRepository authorRepository;
+    private final UserRegisterService userRegisterService;
+
+    @ModelAttribute("currentUser")
+    public UserPageDto user(){
+        return new UserPageDto(userRegisterService.getCurrentUser());
+    }
 
     @ModelAttribute("authorsMap")
     public Map<String,List<Author>> authorsMap(){

@@ -5,9 +5,11 @@ import com.goganesh.bookshop.domain.BookFile;
 import com.goganesh.bookshop.dto.BookFilePageDto;
 import com.goganesh.bookshop.dto.BookPageDto;
 import com.goganesh.bookshop.dto.SearchWordDto;
+import com.goganesh.bookshop.dto.UserPageDto;
 import com.goganesh.bookshop.repository.BookFileRepository;
 import com.goganesh.bookshop.service.BookRatingService;
 import com.goganesh.bookshop.service.BookService;
+import com.goganesh.bookshop.service.UserRegisterService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,14 @@ public class BookPageController {
     private final BookService bookService;
     private final BookFileRepository bookFileRepository;
     private final BookRatingService bookRatingService;
+    private final UserRegisterService userRegisterService;
+
+    @ModelAttribute("currentUser")
+    public UserPageDto user(){
+        return new UserPageDto(userRegisterService.getCurrentUser());
+    }
+
+    //todo review
 
     @ModelAttribute("searchWordDto")
     public SearchWordDto searchWordDto(){

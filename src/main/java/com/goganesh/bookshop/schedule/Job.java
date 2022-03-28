@@ -14,5 +14,6 @@ public class Job {
     //@Scheduled(fixedRate = 1000)// todo cron = "0 0 12 15 * ?")
     public void deleteTempUsers() {
         System.out.println("fdfsdsdf");//todo delete temp users
+
     }
 }

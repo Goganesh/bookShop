@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 @AllArgsConstructor
-public class MyPageController {
+public class MyArchivePageController {
     private final UserRegisterService userRegisterService;
 
     @ModelAttribute("currentUser")
@@ -23,7 +23,7 @@ public class MyPageController {
         return new SearchWordDto();
     }
 
-    @GetMapping("/my")
+    @GetMapping("/myarchive")
     public String handleMy() {
         return "my";
     }

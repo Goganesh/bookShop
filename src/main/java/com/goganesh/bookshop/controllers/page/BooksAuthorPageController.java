@@ -1,13 +1,11 @@
 package com.goganesh.bookshop.controllers.page;
 
 import com.goganesh.bookshop.domain.Author;
-import com.goganesh.bookshop.dto.AuthorPageDto;
-import com.goganesh.bookshop.dto.BookPageDto;
-import com.goganesh.bookshop.dto.BooksPageDto;
-import com.goganesh.bookshop.dto.SearchWordDto;
+import com.goganesh.bookshop.dto.*;
 import com.goganesh.bookshop.repository.AuthorRepository;
 import com.goganesh.bookshop.service.BookRatingService;
 import com.goganesh.bookshop.service.BookService;
+import com.goganesh.bookshop.service.UserRegisterService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +22,12 @@ public class BooksAuthorPageController {
     private final BookService bookService;
     private final AuthorRepository authorRepository;
     private final BookRatingService bookRatingService;
+    private final UserRegisterService userRegisterService;
+
+    @ModelAttribute("currentUser")
+    public UserPageDto user(){
+        return new UserPageDto(userRegisterService.getCurrentUser());
+    }
 
     @ModelAttribute("searchWordDto")
     public SearchWordDto searchWordDto(){

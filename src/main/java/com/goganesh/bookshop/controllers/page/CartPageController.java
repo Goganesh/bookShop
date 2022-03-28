@@ -1,19 +1,17 @@
 package com.goganesh.bookshop.controllers.page;
 
-import com.goganesh.bookshop.domain.Book;
 import com.goganesh.bookshop.domain.Book2User;
 import com.goganesh.bookshop.domain.Book2UserType;
 import com.goganesh.bookshop.domain.User;
 import com.goganesh.bookshop.dto.BookPageDto;
 import com.goganesh.bookshop.dto.SearchWordDto;
+import com.goganesh.bookshop.dto.UserPageDto;
 import com.goganesh.bookshop.repository.Book2UserRepository;
 import com.goganesh.bookshop.repository.Book2UserTypeRepository;
 import com.goganesh.bookshop.service.BookRatingService;
-import com.goganesh.bookshop.service.BookService;
 import com.goganesh.bookshop.service.UserRegisterService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +25,11 @@ public class CartPageController {
     private final UserRegisterService userRegisterService;
     private final Book2UserTypeRepository book2UserTypeRepository;
     private final BookRatingService bookRatingService;
+
+    @ModelAttribute("currentUser")
+    public UserPageDto user(){
+        return new UserPageDto(userRegisterService.getCurrentUser());
+    }
 
     @ModelAttribute("searchWordDto")
     public SearchWordDto searchWordDto(){

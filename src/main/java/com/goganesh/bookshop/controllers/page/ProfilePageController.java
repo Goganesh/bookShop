@@ -2,6 +2,7 @@ package com.goganesh.bookshop.controllers.page;
 
 import com.goganesh.bookshop.dto.SearchWordDto;
 import com.goganesh.bookshop.dto.UserPageDto;
+import com.goganesh.bookshop.service.UserRegisterService;
 import com.goganesh.bookshop.service.impl.UserRegisterServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @AllArgsConstructor
 public class ProfilePageController {
 
-    private final UserRegisterServiceImpl userRegister;
+    private final UserRegisterService userRegisterService;
+
+    @ModelAttribute("currentUser")
+    public UserPageDto user(){
+        return new UserPageDto(userRegisterService.getCurrentUser());
+    }
 
     @ModelAttribute("searchWordDto")
     public SearchWordDto searchWordDto(){
@@ -21,8 +27,7 @@ public class ProfilePageController {
     }
 
     @GetMapping("/profile")
-    public String handleProfile(Model model) {
-        model.addAttribute("curUsr", new UserPageDto(userRegister.getCurrentUser()));
+    public String handleProfile() {
         return "profile";
     }
 }

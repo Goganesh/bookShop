@@ -5,7 +5,10 @@ import com.goganesh.bookshop.service.UserRegisterService;
 import com.goganesh.bookshop.service.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -47,7 +50,8 @@ public class TempUserRequestFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+    protected void doFilterInternal(HttpServletRequest httpServletRequest,
+                                    HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws ServletException, IOException {
         Cookie[] cookies = httpServletRequest.getCookies();
 
@@ -58,6 +62,16 @@ public class TempUserRequestFilter extends OncePerRequestFilter {
 
             UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(tempUserMail);
             String jwtToken = jwtUtil.generateToken(userDetails);
+
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    userDetails,
+                    null,
+                    userDetails.getAuthorities()
+            );
+
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
             httpServletResponse.addCookie(new Cookie(authTokenName, jwtToken));
         }
 
